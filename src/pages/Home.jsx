@@ -11,38 +11,75 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CircularProgress from "@mui/material/CircularProgress";
+// import ImageList from "@mui/material/ImageList";
+// import ImageListItem from "@mui/material/ImageListItem";
+// import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { CarsContext } from "../contexts/car.context";
+import { DriversContext } from "../contexts/driver.context";
 
 function Home() {
   const { fetchCars, loading, cars, deleteCar } = useContext(CarsContext);
   useEffect(() => {
     fetchCars();
   }, [fetchCars]);
+
+  const { fetchDrivers, drivers } = useContext(DriversContext);
+  useEffect(() => {
+    fetchDrivers();
+  }, [fetchDrivers]);
+
+  if (loading) return <CircularProgress />;
+
   return (
-    <Box>
-      <List>
-        {cars.map(({ name, bhp, avatar_url, _id }, i) => (
-          <ListItem key={i}>
-            <ListItemAvatar>
-              <Avatar alt="" src={avatar_url} />
-            </ListItemAvatar>
-            <ListItemText>
-              {name} (BHP: {bhp})
-            </ListItemText>
-            <IconButton
-              aria-label="update"
-              to={`/update/${_id}`}
-              component={Link}
-            >
-              <EditIcon />
-            </IconButton>
-            <IconButton aria-label="delete" onClick={() => deleteCar(_id)}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+    <>
+      <Box>
+        <h2>Cars</h2>
+        <List>
+          {cars.map(({ name, bhp, avatar_url, _id }, i) => (
+            <ListItem key={i}>
+              <ListItemAvatar>
+                <Avatar alt="" src={avatar_url} />
+              </ListItemAvatar>
+              <ListItemText>
+                {name} (BHP: {bhp})
+              </ListItemText>
+              <IconButton
+                aria-label="update-car"
+                to={`/update-car/${_id}`}
+                component={Link}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton aria-label="delete" onClick={() => deleteCar(_id)}>
+                <DeleteIcon />
+              </IconButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+      <Box>
+        <h2>Drivers</h2>
+        <List>
+          {drivers.map(({ _id, email, age, lastname, firstname }, i) => (
+            <ListItem key={i}>
+              <ListItemText>
+                {firstname} {lastname} (age: {age}) {email}
+              </ListItemText>
+              <IconButton
+                aria-label="update-car"
+                to={`/update-car/${_id}`}
+                component={Link}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton aria-label="delete" onClick={() => deleteCar(_id)}>
+                <DeleteIcon />
+              </IconButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </>
   );
 }
 

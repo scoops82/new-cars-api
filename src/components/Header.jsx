@@ -29,7 +29,7 @@ function Header() {
             <Button
               sx={{ my: 2, display: "block" }}
               component={NavLink}
-              to="/add"
+              to="/add-car"
               variant="contained"
               color="secondary"
             >

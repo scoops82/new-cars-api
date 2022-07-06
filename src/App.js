@@ -13,6 +13,7 @@ import UpdateCar from "./pages/UpdateCar.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 import { CarsProvider } from "./contexts/car.context";
+import { DriversProvider } from "./contexts/driver.context";
 
 function App() {
   return (
@@ -21,14 +22,16 @@ function App() {
       <Router>
         <ThemeProvider theme={theme}>
           <CarsProvider>
-            <Routes>
-              <Route path="/" element={<PageLayout />}>
-                <Route index element={<Home />} />
-                <Route path="add" element={<AddCar />} />
-                <Route path="update/:id" element={<UpdateCar />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
+            <DriversProvider>
+              <Routes>
+                <Route path="/" element={<PageLayout />}>
+                  <Route index element={<Home />} />
+                  <Route path="add-car" element={<AddCar />} />
+                  <Route path="update-car/:id" element={<UpdateCar />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+              </Routes>
+            </DriversProvider>
           </CarsProvider>
         </ThemeProvider>
       </Router>
