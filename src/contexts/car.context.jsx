@@ -7,9 +7,9 @@ export const CarsContext = createContext({
   addCar: () => {},
   updateCar: () => {},
   deleteCar: () => {},
-  loaded: false,
-  loading: false,
-  error: null,
+  carsLoaded: false,
+  carsLoading: false,
+  carsError: null,
   cars: [],
 });
 
@@ -17,9 +17,9 @@ export const CarsProvider = (props) => {
   const [cars, setCars] = useState(() => {
     return JSON.parse(localStorage.getItem("cars")) || [];
   });
-  const [loading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(null);
+  const [carsLoading, setCarsLoading] = useState(false);
+  const [carsLoaded, setCarsLoaded] = useState(false);
+  const [carsError, setCarsError] = useState(null);
   // const [search, setSearch] = useState("");
   // const { addToast } = useToasts();
 
@@ -28,10 +28,10 @@ export const CarsProvider = (props) => {
   const fetchCars = useCallback(async () => {
     // console.log('loading', loading);
     // console.log('error', error);
-    if (loading || loaded || error) {
+    if (carsLoading || carsLoaded || carsError) {
       return;
     }
-    setLoading(true);
+    setCarsLoading(true);
     try {
       const response = await fetch(CARS_ENDPOINT);
       if (response.status !== 200) {
@@ -41,12 +41,12 @@ export const CarsProvider = (props) => {
       localStorage.setItem("cars", JSON.stringify(data));
       setCars(data);
     } catch (err) {
-      setError(err.message || err.statusText);
+      setCarsError(err.message || err.statusText);
     } finally {
-      setLoaded(true);
-      setLoading(false);
+      setCarsLoaded(true);
+      setCarsLoading(false);
     }
-  }, [error, loaded, loading]);
+  }, [carsError, carsLoaded, carsLoading]);
 
   const addCar = useCallback(
     async (formData) => {
@@ -183,8 +183,8 @@ export const CarsProvider = (props) => {
     <CarsContext.Provider
       value={{
         cars,
-        loading,
-        error,
+        carsLoading,
+        carsError,
         fetchCars,
         addCar,
         updateCar,
