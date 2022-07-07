@@ -61,7 +61,7 @@ export const DriversProvider = (props) => {
         console.log("got data", savedDriver);
         const newDrivers = [...drivers, savedDriver];
         localStorage.setItem("drivers", JSON.stringify(newDrivers));
-        setCars(newDrivers);
+        setDrivers(newDrivers);
         // addToast(`Saved ${savedCar.name}`, {
         //   appearance: "success",
         // });

@@ -10,6 +10,8 @@ import PageLayout from "./components/PageLayout.jsx";
 import Home from "./pages/Home.jsx";
 import AddCar from "./pages/AddCar.jsx";
 import UpdateCar from "./pages/UpdateCar.jsx";
+import AddDriver from "./pages/AddDriver.jsx";
+import UpdateDriver from "./pages/UpdateDriver.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 import { CarsProvider } from "./contexts/car.context";
@@ -28,6 +30,8 @@ function App() {
                   <Route index element={<Home />} />
                   <Route path="add-car" element={<AddCar />} />
                   <Route path="update-car/:id" element={<UpdateCar />} />
+                  <Route path="add-driver" element={<AddDriver />} />
+                  <Route path="update-driver/:id" element={<UpdateDriver />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
               </Routes>

@@ -18,17 +18,17 @@ import { CarsContext } from "../contexts/car.context";
 import { DriversContext } from "../contexts/driver.context";
 
 function Home() {
-  const { fetchCars, loading, cars, deleteCar } = useContext(CarsContext);
+  const { fetchCars, carsLoading, cars, deleteCar } = useContext(CarsContext);
   useEffect(() => {
     fetchCars();
   }, [fetchCars]);
 
-  const { fetchDrivers, drivers } = useContext(DriversContext);
+  const { fetchDrivers, drivers, deleteDriver } = useContext(DriversContext);
   useEffect(() => {
     fetchDrivers();
   }, [fetchDrivers]);
 
-  if (loading) return <CircularProgress />;
+  if (carsLoading) return <CircularProgress />;
 
   return (
     <>
@@ -40,9 +40,7 @@ function Home() {
               <ListItemAvatar>
                 <Avatar alt="" src={avatar_url} />
               </ListItemAvatar>
-              <ListItemText>
-                {name} (BHP: {bhp})
-              </ListItemText>
+              <ListItemText primary={name} secondary={`BHP: ${bhp}`} />
               <IconButton
                 aria-label="update-car"
                 to={`/update-car/${_id}`}
@@ -62,17 +60,19 @@ function Home() {
         <List>
           {drivers.map(({ _id, email, age, lastname, firstname }, i) => (
             <ListItem key={i}>
-              <ListItemText>
-                {firstname} {lastname} (age: {age}) {email}
-              </ListItemText>
+              <ListItemText
+                primary={`${firstname} ${lastname}`}
+                secondary={`(age: ${age}) ${email}`}
+              />
+
               <IconButton
-                aria-label="update-car"
-                to={`/update-car/${_id}`}
+                aria-label="update-driver"
+                to={`/update-driver/${_id}`}
                 component={Link}
               >
                 <EditIcon />
               </IconButton>
-              <IconButton aria-label="delete" onClick={() => deleteCar(_id)}>
+              <IconButton aria-label="delete" onClick={() => deleteDriver(_id)}>
                 <DeleteIcon />
               </IconButton>
             </ListItem>

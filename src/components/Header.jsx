@@ -24,6 +24,7 @@ function Header() {
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
               justifyContent: "flex-end",
+              gap: "8px",
             }}
           >
             <Button
@@ -34,6 +35,15 @@ function Header() {
               color="secondary"
             >
               Add Car
+            </Button>
+            <Button
+              sx={{ my: 2, display: "block" }}
+              component={NavLink}
+              to="/add-driver"
+              variant="contained"
+              color="secondary"
+            >
+              Add Driver
             </Button>
           </Box>
         </Toolbar>
